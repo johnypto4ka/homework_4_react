@@ -12,23 +12,41 @@ html {
   justify-content: center;
 }
 .App {
-  width: 800px;
+  width: 900px;
 }
 .instruments {
   display: flex;
   justify-content: space-between;
 }
 .post {
-  padding: 15px;
+  display: flex;
+  padding: 12px;
   background: rgba(175, 208, 216, 0.25);
   border: 2px solid teal;
   border-radius: 10px;
   margin-top: 15px;
-  
+}
+.input_wrapper {
+  display: flex;
   align-items: center;
 }
-.post_title {
-  margin-left: 8px;
+.post_element {
+  margin-left: 10px;
+}
+.post_name {
+  width: 120px;
+}
+.post_username {
+  width: 150px;
+  word-wrap: break-word;
+}
+.post_mail {
+  width: 200px;
+  word-wrap: break-word;
+}
+.post_address {
+  width: 260px;
+  word-wrap: break-word;
 }
 .post_content {
   margin: 10px 0;
@@ -42,6 +60,31 @@ html {
 .head, .noposts{
   text-align: center;
   margin-top: 15px;
+}
+.header {
+  display: flex;
+  padding: 12px;
+  background: rgba(175, 208, 216, 0.25);
+  border: 2px solid teal;
+  border-radius: 10px;
+  margin-top: 15px;
+}
+.header_item {
+  margin-left: 10px;
+  font-size: 20px;
+}
+.header_name {
+  margin-left: 40px;
+  width: 120px;
+}
+.header_username {
+  width: 145px;
+}
+.header_mail {
+  width: 200px;
+}
+.header_address {
+  width: 260px;
 }
 
 .remove_btn {
@@ -64,15 +107,17 @@ html {
 .selectedPost {
   background: rgba(172, 172, 172, 0.25);
   border-radius: 5px;
-  margin: 0 5px;
+  margin: 5px 10px 5px 0;
   padding: 5px 12px;
 }
 .selectedPostInfo {
   background: rgba(172, 172, 172, 0.25);
   border-radius: 5px;
-  margin: 0 5px 0 0 ;
+  margin: 5px 5px 5px 0 ;
   padding: 5px 12px;
 }
-
+.loading {
+  margin-top: 20px;
+}
 
 

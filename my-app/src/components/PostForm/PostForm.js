@@ -4,18 +4,29 @@ import MyButton from '../Button/Button';
 import './PostForm.css';
 
 const PostForm = ({create}) => {
-  const [title,setTitle]=useState('');
-  const [message,setMessage]=useState('');
+  const [name,setName]=useState('');
+  const [username,setUsername]=useState('');
+  const [email ,setEmail]=useState('');
+  const [city, setCity]=useState('');
+  const [street, setStreet]=useState('');
   
-   const onChangeTitle=(e)=>{
-    console.log(e.target.value);
-    setTitle(e.target.value);
-
+  const onChangeName=(e)=>{
+    setName(e.target.value);
   }
-  const onChangeMessage=(e)=>{
-    console.log(e.target.value);
-    setMessage(e.target.value);  }
-    
+
+  const onChangeUsername=(e)=>{
+    setUsername(e.target.value);
+  }
+  const onChangeEmail=(e)=>{
+    setEmail(e.target.value);
+  }
+  const onChangeCity=(e)=>{
+    setCity(e.target.value);
+  }
+  const onChangeStreet=(e)=>{
+    setStreet(e.target.value);
+  }
+
   let onAddNewPost = (e) => { 
     const { target } = e
     e.preventDefault()
@@ -27,23 +38,40 @@ const PostForm = ({create}) => {
     }
     const newPost={
       id: Date.now(), 
-      title, 
-      message 
+      name, 
+      username,
+      email,
+      address: {
+        city,
+        street
+      }
     }    
    create(newPost);
-   setTitle('');
-   setMessage('');   
+   setName('');
+   setUsername('');   
   }; 
 
     return (
       <form id="form" onSubmit={onAddNewPost} noValidate>
         
-        <MyInput onChange={onChangeTitle} type="text" placeholder="Название  поста" 
-        value={title} minLength="2" maxLength="15" required  />
+        <MyInput onChange={onChangeName} type="text" placeholder="Введите Имя" 
+        value={name} minLength="2" maxLength="15" required  />
         <span className="message__error">Заполните поле, количество символов от 2 до 20.</span>
         <span className="message__success">Успешно</span>
-        <MyInput onChange={onChangeMessage} type="text" placeholder=" Описание  поста" 
-        value={message} minLength="2" maxLength="50" required />
+        <MyInput onChange={onChangeUsername} type="text" placeholder="Введите ник" 
+        value={username} minLength="2" maxLength="15" required />
+        <span className="message__error">Заполните поле, количество символов от 2 до 20.</span>
+        <span className="message__success">Успешно</span>
+        <MyInput onChange={onChangeEmail} type="text" placeholder="Введите E-mail" 
+        value={email} minLength="2" maxLength="20" required />
+        <span className="message__error">Заполните поле, количество символов от 2 до 20.</span>
+        <span className="message__success">Успешно</span>
+        <MyInput onChange={onChangeCity} type="text" placeholder="Введите город" 
+        value={city} minLength="2" maxLength="20" required />
+        <span className="message__error">Заполните поле, количество символов от 2 до 20.</span>
+        <span className="message__success">Успешно</span>
+        <MyInput onChange={onChangeStreet} type="text" placeholder="Введите улицу" 
+        value={street} minLength="2" maxLength="20" required />
         <span className="message__error">Заполните поле, количество символов от 2 до 20.</span>
         <span className="message__success">Успешно</span>
         <MyButton>Добавить пост</MyButton>       

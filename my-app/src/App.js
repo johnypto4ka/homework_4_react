@@ -1,28 +1,32 @@
 import React , { useState, useMemo, useEffect } from "react";
+import { Dots } from "loading-animations-react";
+import axios from "axios";
+
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm/PostForm";
 import Select from "./components/Select/Select";
 import Modal from "./components/Modal/Modal";
 import SearchInput from "./components/Input/SearchInput";
 import MyButton from "./components/Button/Button";
+import PostService from "./components/API/PostService";
 
 import './App.css';
 
 function App() {
-  const [posts,setPosts]=useState ([
-    {id: 1, title: "JS", message: "Язык программирования"},
-    {id: 2, title: "React", message: "Библиотека JS"},
-    {id: 3, title: "HTML", message: "Язык разметки страницы"},
-    {id: 4, title: "CSS", message: "Таблицы стилей"}
-  ])
-
+  const [posts,setPosts]=useState ([])
   const [selectedSort,setSelectedSort]=useState('');
   const [isModalActive, setIsModalActive ]=useState(false);
   const [selectedTitle, setSelectedTitle]=useState([]);
   const [searchQuery, setSearchQuery]=useState('');
+  const [isPostLoading, setIsPostLoading]=useState(false)
+
+  useEffect(()=>{
+    fetchData()
+  }, [])
 
   const createPost=(newPost)=>{
-    setPosts([...posts,newPost]);
+    console.log(newPost);
+    setPosts([newPost,...posts]);
     setIsModalActive(false);
    }
   
@@ -36,7 +40,7 @@ function App() {
     },[selectedSort,posts])
   
   const sortAndSearchedPosts = useMemo(()=>{    
-    let newArray = sortedPost.filter(post=>post.title.toLowerCase().includes(searchQuery));
+    let newArray = sortedPost.filter(post=>post.name.toLowerCase().includes(searchQuery));
     return newArray;
   },[searchQuery, sortedPost]);  
 
@@ -47,10 +51,19 @@ function App() {
 
   const sortPost=(sortValue)=>{
     setSelectedSort(sortValue);
-    // console.log(sortValue);
     let newPosts=[...posts].sort((a,b)=>a[sortValue].localeCompare(b[sortValue]));
     setPosts(newPosts);
-}
+  }
+
+  async function fetchData() {
+    setIsPostLoading(true);
+      setTimeout( async () => {
+      const posts= await PostService.getAllPosts();
+      console.log(posts);
+      setPosts(posts);  
+      setIsPostLoading(false); 
+    }, 1000);   
+  }
 
   const checkedPost = (post) => {
     setSelectedTitle([...selectedTitle, post])
@@ -63,7 +76,7 @@ function App() {
 
   return (
     <div className="App">
-      <MyButton  onClick={()=>setIsModalActive(true)}>Создать пост</MyButton>
+      <MyButton  onClick={()=>setIsModalActive(true)}>Добавить</MyButton>
       <Modal visible={isModalActive}
         setVisible={setIsModalActive} >
         <PostForm create={createPost} />
@@ -71,8 +84,9 @@ function App() {
       <div className="instruments">
       <Select defaultValue="Сортировка по "
              options={[
-             {value:"title", name:"По названию"},
-             {value:"message", name:"По описанию"}
+             {value:"name", name:"По имени"},
+             {value:"username", name:"По нику"},
+             {value:"email", name:"По e-mail"},
         ]}
         value={selectedSort}
         sortPost={sortPost}
@@ -80,17 +94,18 @@ function App() {
       <SearchInput onChange={(e)=>{setSearchQuery(e.target.value)}} value={searchQuery} placeholder="Поиск.."></SearchInput>
       </div>
       <div className="selectedItems">
-        <div className="selectedPostInfo">Выбран посто о:</div>
+        <div className="selectedPostInfo">Выбран пользователь:</div>
         {selectedTitle ? (selectedTitle.map((post)=>(
-        <div className="selectedPost" key={post.id}>{post.title}</div>
+        <div className="selectedPost" key={post.id}>{post.name}</div>
       ))): ''} </div>
-
-      { sortAndSearchedPosts.length !== 0 ?
-        <PostList posts={sortAndSearchedPosts}  checkedPost={checkedPost} removeCheckedPost={removeCheckedPost} remove={removePost} title="Список постов"/>
+      {isPostLoading ? <div className="loading"><Dots/></div> :
+       <div>
+        { sortAndSearchedPosts.length !== 0 ?
+        <PostList posts={sortAndSearchedPosts}  checkedPost={checkedPost} removeCheckedPost={removeCheckedPost} 
+        remove={removePost} title="Список пользователей"/>
         : <div><h1 className="noposts">Посты не найдены</h1></div>
-      }
-      
-      
+        } </div>
+      }    
     </div>
   );
 }
