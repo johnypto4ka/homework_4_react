@@ -7,6 +7,9 @@ html {
   min-height: 100%;
   background: url(../src/components/img/pexels_gradienta_6985003.jpg)  center center/cover no-repeat;
 }
+h1, h2 {
+  text-align: center;
+}
 #root {
   display: flex;
   justify-content: center;
@@ -26,6 +29,15 @@ html {
   border-radius: 10px;
   margin-top: 15px;
 }
+.post_link {
+  display: flex;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.3);
+  margin: 0 10px;
+  border-radius: 10px;
+  padding: 5px 0;
+  color: #000;
+}
 .input_wrapper {
   display: flex;
   align-items: center;
@@ -33,8 +45,11 @@ html {
 .post_element {
   margin-left: 10px;
 }
+.post_number {
+  min-width: 15px;
+}
 .post_name {
-  width: 120px;
+  width: 140px;
 }
 .post_username {
   width: 150px;
@@ -44,8 +59,8 @@ html {
   width: 200px;
   word-wrap: break-word;
 }
-.post_address {
-  width: 260px;
+.post_phone {
+  width: 210px;
   word-wrap: break-word;
 }
 .post_content {
@@ -53,7 +68,11 @@ html {
   display: flex;
   justify-content: space-between;
 }
-
+.post_back {
+  justify-content: center;
+  width: 150px;
+  margin-top: 20px;
+}
 .rating {
   display: flex;
 }
@@ -75,10 +94,10 @@ html {
 }
 .header_name {
   margin-left: 40px;
-  width: 120px;
+  width: 160px;
 }
 .header_username {
-  width: 145px;
+  width: 160px;
 }
 .header_mail {
   width: 200px;
@@ -119,5 +138,42 @@ html {
 .loading {
   margin-top: 20px;
 }
+header {
+  background: #83838336;
+  margin: 20px 0;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+}
+.menuItem {
+  text-decoration: none;
+  background-color: rgb(2, 69, 253);
+  color: #ffffff;
+  border-radius: 15px;
+  font-size: 20px;
+  padding: 5px 10px;
+  margin: 5px 10px;
+}
+.active {
+  background-color: rgb(171, 0, 250);
+}
+.userpage {
+  font-size: 20px;
+  border: 2px solid rgb(0, 255, 13);
+  border-radius: 10px;
+  margin-top: 20px;
+}
+.user {
+  width: 600px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+}
 
-
+.friendlist{
+  width: 600px;
+  margin: 0 auto;
+  display: flex;
+  padding-bottom: 10px;
+}

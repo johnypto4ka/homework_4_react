@@ -7,8 +7,7 @@ const PostForm = ({create}) => {
   const [name,setName]=useState('');
   const [username,setUsername]=useState('');
   const [email ,setEmail]=useState('');
-  const [city, setCity]=useState('');
-  const [street, setStreet]=useState('');
+  const [phone, setPhone]=useState('');
   
   const onChangeName=(e)=>{
     setName(e.target.value);
@@ -20,11 +19,8 @@ const PostForm = ({create}) => {
   const onChangeEmail=(e)=>{
     setEmail(e.target.value);
   }
-  const onChangeCity=(e)=>{
-    setCity(e.target.value);
-  }
-  const onChangeStreet=(e)=>{
-    setStreet(e.target.value);
+  const onChangePhone=(e)=>{
+    setPhone(e.target.value);
   }
 
   let onAddNewPost = (e) => { 
@@ -41,14 +37,13 @@ const PostForm = ({create}) => {
       name, 
       username,
       email,
-      address: {
-        city,
-        street
-      }
+      phone
     }    
    create(newPost);
    setName('');
-   setUsername('');   
+   setUsername('');
+   setEmail('');
+   setPhone('');   
   }; 
 
     return (
@@ -62,16 +57,12 @@ const PostForm = ({create}) => {
         value={username} minLength="2" maxLength="15" required />
         <span className="message__error">Заполните поле, количество символов от 2 до 20.</span>
         <span className="message__success">Успешно</span>
-        <MyInput onChange={onChangeEmail} type="text" placeholder="Введите E-mail" 
-        value={email} minLength="2" maxLength="20" required />
+        <MyInput onChange={onChangeEmail} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$" type="email" 
+        placeholder="Введите E-mail" value={email} minLength="2" maxLength="20" required />
         <span className="message__error">Заполните поле, количество символов от 2 до 20.</span>
         <span className="message__success">Успешно</span>
-        <MyInput onChange={onChangeCity} type="text" placeholder="Введите город" 
-        value={city} minLength="2" maxLength="20" required />
-        <span className="message__error">Заполните поле, количество символов от 2 до 20.</span>
-        <span className="message__success">Успешно</span>
-        <MyInput onChange={onChangeStreet} type="text" placeholder="Введите улицу" 
-        value={street} minLength="2" maxLength="20" required />
+        <MyInput onChange={onChangePhone} type="number" placeholder="Введите телефон" 
+        value={phone} minLength="2" maxLength="20" required />
         <span className="message__error">Заполните поле, количество символов от 2 до 20.</span>
         <span className="message__success">Успешно</span>
         <MyButton>Добавить пост</MyButton>       

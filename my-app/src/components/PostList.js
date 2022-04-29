@@ -8,7 +8,7 @@ import PostItem from "./PostItem";
                 <div className="header_item header_name">name</div>
                 <div className="header_item header_username">nik</div>
                 <div className="header_item header_mail">e-mail</div>
-                <div className="header_item header_address">address</div>
+                <div className="header_item header_address">phone</div>
             </div>
             {posts.map((post, index) => (
                 <PostItem remove={remove} removeCheckedPost={removeCheckedPost} 
