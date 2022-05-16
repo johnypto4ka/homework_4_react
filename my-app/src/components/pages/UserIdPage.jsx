@@ -1,19 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-
+import arrow from '../icons/back-arrow.svg';
 import '../../App.css';
+import PostService from "../API/PostService";
 
 const PostIdPage=()=> {
   const {id} = useParams();
   const[post, setPost]=useState([])
+  const[comments, setComments]=useState([])
+
+  const params = useParams();
+  console.log(params)
 
   useEffect(()=>{
-    fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
-    	.then(res=>res.json())
-      .then(data=>setPost(data))
+    fetchUserData();
+    fetchUserCommentData();
     }, [])
-    console.log(post);
+    
+    async function fetchUserData() {
+      const post = await PostService.getUserById(params.id);
+      setPost(post);
+    }
+
+    async function fetchUserCommentData() {
+      const comments = await PostService.getCommentsById(params.id);
+      setComments(comments);
+      console.log(comments)
+    }
+
     return (
       <div>
         <h2> Пользователь № {id}</h2>
@@ -28,9 +43,21 @@ const PostIdPage=()=> {
 						
 						</div>
 					</div>
+          <div className="comments">
+            <h4>Комментарии:</h4>
+            <div>
+              {comments.map(comment=>
+                <div className="comments_item" key={comment.id}>
+                  <h5>{comment.name}</h5>
+                  <div>{comment.body}</div>
+                </div>
+                )}
+            </div>
+          </div>
         </div>
 				<Link className="post_link post_back" to={`/users`}>
-        	Назад
+          <img src={arrow} alt="arrow"/>
+          <p className="post_element">Назад</p>
       	</Link>     
       </div>
     );

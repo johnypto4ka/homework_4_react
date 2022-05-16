@@ -63,7 +63,7 @@ function Users() {
       console.log(posts);
       setPosts(posts);  
       setIsPostLoading(false); 
-    }, 1000);   
+    }, 300);   
   }
 
   const checkedPost = (post) => {

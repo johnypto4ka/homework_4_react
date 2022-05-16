@@ -26,7 +26,7 @@ const PostForm = ({create}) => {
   let onAddNewPost = (e) => { 
     const { target } = e
     e.preventDefault()
-
+    console.log(target)
     if(!target.checkValidity()) {
         target.classList.add('enable-validation')
     } else {
@@ -48,7 +48,6 @@ const PostForm = ({create}) => {
 
     return (
       <form id="form" onSubmit={onAddNewPost} noValidate>
-        
         <MyInput onChange={onChangeName} type="text" placeholder="Введите Имя" 
         value={name} minLength="2" maxLength="15" required  />
         <span className="message__error">Заполните поле, количество символов от 2 до 20.</span>
